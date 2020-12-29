@@ -4,13 +4,14 @@ it('should execute function', async () => {
   const script = compiler.newComponent({
     component: 'JavaScript',
     // function: () => console.log('foo')
+    function: (props) => console.log({ props }),
   });
 
-  const foo = () => console.log('bar');
+  // const foo = () => console.log('bar');
 
-  script.set({ function: foo });
+  // script.set({ function: foo });
 
-  await script.run();
+  await script.run({ arguments: 'foo' });
 
   // console.log(foo)
 });

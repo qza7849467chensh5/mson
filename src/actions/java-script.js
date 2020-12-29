@@ -24,9 +24,9 @@ export default class JavaScript extends Action {
     const fun = this.get('function');
     // console.log({ fun });
     // TODO: how to execute function in a safe way and get the results? Use eval in browser and sandbox in backend?
-    if (typeof fun === 'function') {
-      // console.log('is function');
-      await fun(props);
-    }
+    // if (typeof fun === 'function') {
+    // console.log('is function');
+    return await fun(props);
+    // }
   }
 }
