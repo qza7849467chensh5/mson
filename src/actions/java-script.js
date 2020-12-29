@@ -22,7 +22,8 @@ export default class JavaScript extends Action {
 
   set(props) {
     if (props.function !== undefined && typeof props.function !== 'function') {
-      // TODO: use sandbox instead of eval in back end?
+      // Note: use of `new Function` doesn't allow access to local scope:
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/Function
       props = {
         ...props,
         function: new Function(
