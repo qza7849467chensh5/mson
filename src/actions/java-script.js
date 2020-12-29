@@ -28,7 +28,7 @@ export default class JavaScript extends Action {
         ...props,
         function: new Function(
           'props',
-          `const f = ${props.function.toString()}; f(props);`
+          `const f = ${props.function.toString()}; return f(props);`
         ),
       };
     }
