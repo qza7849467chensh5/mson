@@ -10,6 +10,16 @@ it('should execute function', async () => {
   expect(output).toEqual({ arguments: 'foo' });
 });
 
+it('should execute async function', async () => {
+  const script = compiler.newComponent({
+    component: 'JavaScript',
+    function: (props) => Promise.resolve(props),
+  });
+
+  const output = await script.run({ arguments: 'foo' });
+  expect(output).toEqual({ arguments: 'foo' });
+});
+
 it('should serialize and deserialize function', async () => {
   const fun = (props) => props;
 
