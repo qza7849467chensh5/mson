@@ -23,7 +23,13 @@ export default class JavaScript extends Action {
   set(props) {
     if (props.function !== undefined && typeof props.function !== 'function') {
       // TODO: use sandbox instead of eval in back end?
-      props = { ...props, function: eval(props.function) };
+      props = {
+        ...props,
+        function: new Function(
+          'props',
+          `const f = ${props.function.toString()}; f(props);`
+        ),
+      };
     }
 
     super.set(props);
@@ -31,11 +37,6 @@ export default class JavaScript extends Action {
 
   async act(props) {
     const fun = this.get('function');
-    // console.log({ fun });
-    // TODO: how to execute function in a safe way and get the results? Use eval in browser and sandbox in backend?
-    // if (typeof fun === 'function') {
-    // console.log('is function');
     return await fun(props);
-    // }
   }
 }

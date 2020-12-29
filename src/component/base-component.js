@@ -540,6 +540,9 @@ export default class BaseComponent extends events.EventEmitter {
       // Report error via the actionErr event
       this._onActionErr(err);
 
+      // TODO: how to enable this in the UI?
+      console.error(err);
+
       // Note: previous implementations used to throw the err here so that it was clear that
       // something went wrong even if the user is not listening to the action error. This however,
       // causes recent versions of React to bomb out with an "unhandled promise" error. We choose
