@@ -85,6 +85,7 @@ export default class PropFiller {
       } else if (typeof item === 'string') {
         return this.fillString(item);
       } else if (typeof item === 'function') {
+        // e.g. JavaScript action
         return item;
       }
     });
