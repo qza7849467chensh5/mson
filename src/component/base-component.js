@@ -540,7 +540,7 @@ export default class BaseComponent extends events.EventEmitter {
       // Report error via the actionErr event
       this._onActionErr(err);
 
-      // TODO: how to enable this in the UI?
+      // TODO: how to enable this in the UI? Build into App component with on actionErr listener?
       console.error(err);
 
       // Note: previous implementations used to throw the err here so that it was clear that

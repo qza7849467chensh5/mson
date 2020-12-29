@@ -6,8 +6,27 @@ it('should execute function', async () => {
     function: (props) => props,
   });
 
+  // Mock
+  jest.spyOn(script._globals, 'get').mockImplementation((name) => {
+    if (name === 'path') {
+      return 'https://example.com';
+    }
+  });
+  jest
+    .spyOn(script._componentFillerProps, '_getSession')
+    .mockImplementation(() => {
+      return {
+        user: {
+          roleNames: ['admin'],
+        },
+      };
+    });
+
   const output = await script.run({ arguments: 'foo' });
-  expect(output).toEqual({ arguments: 'foo' });
+  expect(output).toEqual({ ...output, arguments: 'foo' });
+
+  expect(output.globals.get('path')).toEqual('https://example.com');
+  expect(output.session.user.roleNames).toEqual(['admin']);
 });
 
 it('should execute async function', async () => {
@@ -17,7 +36,7 @@ it('should execute async function', async () => {
   });
 
   const output = await script.run({ arguments: 'foo' });
-  expect(output).toEqual({ arguments: 'foo' });
+  expect(output).toEqual({ ...output, arguments: 'foo' });
 });
 
 it('should serialize and deserialize function', async () => {
@@ -29,5 +48,5 @@ it('should serialize and deserialize function', async () => {
   });
 
   const output = await script.run({ arguments: 'foo' });
-  expect(output).toEqual({ arguments: 'foo' });
+  expect(output).toEqual({ ...output, arguments: 'foo' });
 });

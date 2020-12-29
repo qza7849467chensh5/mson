@@ -38,6 +38,10 @@ export default class JavaScript extends Action {
 
   async act(props) {
     const fun = this.get('function');
-    return await fun(props);
+    return await fun({
+      ...props,
+      globals: this._globals,
+      session: this._componentFillerProps._getSession(),
+    });
   }
 }
