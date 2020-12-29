@@ -15,3 +15,14 @@ it('should execute function', async () => {
 
   // console.log(foo)
 });
+
+it('should serialize and deserialize function', async () => {
+  const fun = (props) => console.log({ props });
+
+  const script = compiler.newComponent({
+    component: 'JavaScript',
+    function: fun.toString(),
+  });
+
+  await script.run({ arguments: 'foo' });
+});

@@ -20,6 +20,15 @@ export default class JavaScript extends Action {
     });
   }
 
+  set(props) {
+    if (props.function !== undefined && typeof props.function !== 'function') {
+      // TODO: use sandbox instead of eval in back end?
+      props = { ...props, function: eval(props.function) };
+    }
+
+    super.set(props);
+  }
+
   async act(props) {
     const fun = this.get('function');
     // console.log({ fun });
