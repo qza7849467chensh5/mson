@@ -12,6 +12,7 @@ import ComponentField from '../fields/component-field';
 import FormField from '../fields/form-field';
 import FormErr from './form-err';
 import ExtendedField from '../fields/extended-field';
+// import BooleanField from '../fields/boolean-field';
 
 export default class Form extends UIComponent {
   _className = 'Form';
@@ -175,6 +176,17 @@ export default class Form extends UIComponent {
             name: 'clearErrs',
             component: 'BooleanField',
           },
+          {
+            // A flag that can be used to determine if the record is new or existing. We used to use
+            // the presence of the id to denote this state, but it is possible that the record may
+            // have an id, e.g. UUID, before it has been saved in a back-end store. The "new"
+            // property allows us to avoid having to issue extra queries against the back-end store
+            // to see if the record exists. We define a property at the Form layer instead of making
+            // it a field as the property is lighter weight than a field and it is best to avoid
+            // polluting the record with this attribute.
+            name: 'new',
+            component: 'BooleanField',
+          },
         ],
       },
     });
@@ -333,6 +345,16 @@ export default class Form extends UIComponent {
       'order',
       new NumberField({ name: 'order', label: 'Order', hidden: true })
     );
+
+    // TODO: should this really be a field or just a property on form?
+    // // A flag that can be used to determine if the record is new or existing. We used to use the
+    // // presence of the id to denote this state, but it is possible that the record may have an id,
+    // // e.g. UUID, before it has been saved in a back-end store. The "new" field allows us to avoid
+    // // having to issue extra queries against the back-end store to see if the record exists.
+    // this._defaultFields.set(
+    //   'new',
+    //   new BooleanField({ name: 'new', label: 'New', hidden: true, in: false, out: false })
+    // );
   }
 
   _createDefaultFields() {
