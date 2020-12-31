@@ -42,7 +42,7 @@ export default class JavaScript extends Action {
       ...props,
       globals: this._globals,
       session: this._componentFillerProps._getSession(),
-      this: this,
+      self: this, // Use self instead of "this" as "this" is a reserved keyword
     });
   }
 }
