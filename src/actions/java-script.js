@@ -42,6 +42,7 @@ export default class JavaScript extends Action {
       ...props,
       globals: this._globals,
       session: this._componentFillerProps._getSession(),
+      this: this,
     });
   }
 }
