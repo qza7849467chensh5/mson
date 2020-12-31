@@ -91,6 +91,7 @@ it('should getAll', async () => {
       onGetAll: onGetAllPeople,
       onGetItemsPerPage: onGetItemsPerPageMock,
       onGetWhere: () => where,
+      onGetSearchString: () => 'bar',
     })
   );
 
@@ -133,6 +134,7 @@ it('should getAll', async () => {
   onAddItems.mockReset();
   onEmitChange.mockReset();
   infiniteLoader._onGetWhere = () => null;
+  infiniteLoader._onGetSearchString = () => null;
   await infiniteLoader.getAll({ after: 'ellaCursor' });
   expect(infiniteLoader._beginId).toEqual('stevie');
   expect(infiniteLoader._beginCursor).toEqual('stevieCursor');
