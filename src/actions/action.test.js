@@ -349,3 +349,17 @@ it('should retrieve parent properties', async () => {
   });
   expect(field.getValue()).toEqual('bar');
 });
+
+// it.only('should support JS in template parameters', async () => {
+//   const action = new Set({
+//     name: 'value',
+// // TODO: also make sure works for multiple parameters, e.g. "{{ 'Jack' + 'ie' }} {{ 'Robin' + 'son' }}"
+// value: "{{ value + 'ie' }}",
+//     // value: "{{value}}ie", // TODO: remove, but works with current MSON
+//   })
+//   const field = new TextField({ name: 'firstName', label: 'First Name', value: 'Jack' });
+//   await action.run({
+//     component: field,
+//   });
+//   expect(field.getValue()).toEqual('Jackie');
+// });
