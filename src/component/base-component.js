@@ -124,6 +124,38 @@ export default class BaseComponent extends events.EventEmitter {
     }
   }
 
+  _proxy() {
+    return new Proxy(this, {
+      get: (target, key) => {
+        // TODO: simplify branching
+        /*if (key === 'getClassName') {
+          // if (this._componentToWrap) {
+          //   return this._componentToWrap.getClassName();
+          // } else {
+          if (typeof this['getClassName'] === 'function') {
+            return this.getClassName();
+          } else {
+            console.log({ key, typeof: typeof this['getClassName'], target })
+            // throw new Error('wtf')
+            return Reflect.get(target, key);
+          }
+          // }
+          return Reflect.get(target, key);
+        } else*/ if (
+          key in this
+        ) {
+          return Reflect.get(target, key);
+        } else if (this.has(key)) {
+          return this.get(key);
+        } else {
+          // We may end up here is we are implicitly retrieving the value of a schema-defined
+          // property. TODO: should we change the callers so that this doesn't happen?
+          return Reflect.get(target, key);
+        }
+      },
+    });
+  }
+
   constructor(props) {
     super(props);
 
@@ -162,6 +194,8 @@ export default class BaseComponent extends events.EventEmitter {
     this._emitCreateIfNotMuted();
 
     this._setKey();
+
+    return this._proxy();
   }
 
   _setKey() {

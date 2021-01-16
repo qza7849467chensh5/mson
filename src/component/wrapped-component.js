@@ -7,6 +7,27 @@ import utils from '../utils';
 export default class WrappedComponent extends BaseComponent {
   _className = 'WrappedComponent';
 
+  // _proxy() {
+  //   return new Proxy(this, {
+  //     get: (target, key) => {
+  //       if (key in this) {
+  //         return Reflect.get(target, key);
+  //       } else if (this.has(key)) {
+  //         return this.get(key);
+  //       } else {
+  //         // We may end up here is we are implicitly retrieving the value of a schema-defined
+  //         // property. TODO: should we change the callers so that this doesn't happen?
+  //         return Reflect.get(target, key);
+  //       }
+  //     },
+  //   });
+  // }
+
+  // constructor(props) {
+  //   super(props);
+  //   return this._proxy();
+  // }
+
   _getWrappedComponentSchema() {
     return {
       component: 'Form',
